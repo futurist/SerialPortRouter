@@ -22,6 +22,7 @@ namespace PCComm
         public frmMain()
         {
             InitializeComponent();
+            Control.CheckForIllegalCrossThreadCalls = false;
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -83,8 +84,6 @@ namespace PCComm
             comm2.BaudRate = cboBaud2.Text;
             comm2.DisplayWindow = rtbDisplay2;
             comm2.OpenPort();
-
-            CheckForIllegalCrossThreadCalls = false;
 
 
             if (true == comm.isPortOpen)
