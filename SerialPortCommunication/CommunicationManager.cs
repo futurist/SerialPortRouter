@@ -28,10 +28,11 @@ namespace PCComm
         private string _stopBits = string.Empty;
         private string _dataBits = string.Empty;
         private string _portName = string.Empty;
+        public string name = string.Empty;
+
         private TransmissionType _transType;
         private RichTextBox _displayWindow;
-        public Func<byte[], int> onHexData = null;
-        public Func<string, int> onAsciiData = null;
+        public Func<string, int> onData = null;
         //global manager variables
         private Color[] MessageColor = { Color.Blue, Color.Green, Color.Black, Color.Orange, Color.Red };
         private SerialPort comPort = new SerialPort();
@@ -179,7 +180,7 @@ namespace PCComm
                     comPort.Write(msg);
                     SendEndOfLine();
                     //display the message
-                    DisplayData(MessageType.Outgoing, msg + "\n");
+                    DisplayData(MessageType.Outgoing, "--Write--\n" + msg + "\n");
                     break;
                 case TransmissionType.Hex:
                     try
@@ -190,7 +191,7 @@ namespace PCComm
                         comPort.Write(newMsg, 0, newMsg.Length);
                         SendEndOfLine();
                         //convert back to hex and display
-                        DisplayData(MessageType.Outgoing, ByteToHex(newMsg) + "\n");
+                        DisplayData(MessageType.Outgoing, "--Write--\n" + ByteToHex(newMsg) + "\n");
                     }
                     catch (FormatException ex)
                     {
@@ -207,7 +208,7 @@ namespace PCComm
                     comPort.Write(msg);
                     SendEndOfLine();
                     //display the message
-                    DisplayData(MessageType.Outgoing, msg + "\n");
+                    DisplayData(MessageType.Outgoing, "--Write--\n" + msg + "\n");
                     break;
             }
         }
@@ -277,10 +278,10 @@ namespace PCComm
         {
             _displayWindow.Invoke(new EventHandler(delegate
         {
-            _displayWindow.SelectedText = string.Empty;
-            _displayWindow.SelectionFont = new Font(_displayWindow.SelectionFont, FontStyle.Bold);
-            _displayWindow.SelectionColor = MessageColor[(int)type];
-            _displayWindow.AppendText(msg);
+            //_displayWindow.SelectedText = string.Empty;
+            //_displayWindow.SelectionFont = new Font(_displayWindow.SelectionFont, FontStyle.Bold);
+            //_displayWindow.SelectionColor = MessageColor[(int)type];
+            _displayWindow.AppendText("\n" + DateTime.Now.ToString("HH:mm:ss.fff") + "\n" + msg);
             _displayWindow.ScrollToCaret();
         }));
         }
@@ -375,8 +376,8 @@ namespace PCComm
                     //display the data to the user
                     if (msg.Length > 0)
                     {
-                        if (onAsciiData != null) onAsciiData(msg);
-                        DisplayData(MessageType.Incoming, msg + "\n");
+                        if (onData != null) onData(msg);
+                        DisplayData(MessageType.Incoming, "--Read--\n" + msg + "\n");
                     }
                     break;
                 //user chose binary
@@ -390,8 +391,8 @@ namespace PCComm
                     //display the data to the user
                     if (bytes > 0)
                     {
-                        if (onHexData!=null) onHexData(comBuffer);
-                        DisplayData(MessageType.Incoming, ByteToHex(comBuffer) + "\n");
+                        if (onData != null) onData(ByteToHex(comBuffer) + " ");
+                        DisplayData(MessageType.Incoming, "--Read--\n" + ByteToHex(comBuffer) + "\n");
                     }
                     break;
                 default:
@@ -399,7 +400,7 @@ namespace PCComm
                     msg = comPort.ReadExisting().Trim();
                     //display the data to the user
                     if (msg.Length > 0)
-                        DisplayData(MessageType.Incoming, msg + "\n");
+                        DisplayData(MessageType.Incoming, "--Read--\n" + msg + "\n");
                     break;
             }
 

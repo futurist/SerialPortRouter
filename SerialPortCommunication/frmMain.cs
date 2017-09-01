@@ -24,11 +24,11 @@ namespace PCComm
            SetDefaults();
            SetControlState();
 
-           comm.CurrentTransmissionType = PCComm.CommunicationManager.TransmissionType.Text;
-           comm2.CurrentTransmissionType = PCComm.CommunicationManager.TransmissionType.Text;
+           comm.CurrentTransmissionType = PCComm.CommunicationManager.TransmissionType.Hex;
+           comm2.CurrentTransmissionType = PCComm.CommunicationManager.TransmissionType.Hex;
 
-           comm.onAsciiData = forward1;
-           comm2.onAsciiData = forward2;
+           comm.onData = forward1;
+           comm2.onData = forward2;
         }
 
 
@@ -46,6 +46,7 @@ namespace PCComm
 
         private void cmdOpen_Click(object sender, EventArgs e)
         {
+            comm.name = "[Left]";
             comm.PortName = cboPort.Text;
             comm.Parity = cboParity.Text;
             comm.StopBits = cboStop.Text;
@@ -54,6 +55,7 @@ namespace PCComm
             comm.DisplayWindow = rtbDisplay;
             comm.OpenPort();
 
+            comm2.name = "[RIGHT]";
             comm2.PortName = cboPort2.Text;
             comm2.Parity = cboParity2.Text;
             comm2.StopBits = cboStop2.Text;
@@ -61,6 +63,9 @@ namespace PCComm
             comm2.BaudRate = cboBaud2.Text;
             comm2.DisplayWindow = rtbDisplay2;
             comm2.OpenPort();
+
+            CheckForIllegalCrossThreadCalls = false;
+
 
             if (true == comm.isPortOpen)
             {
