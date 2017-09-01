@@ -281,7 +281,7 @@ namespace PCComm
             //_displayWindow.SelectedText = string.Empty;
             //_displayWindow.SelectionFont = new Font(_displayWindow.SelectionFont, FontStyle.Bold);
             //_displayWindow.SelectionColor = MessageColor[(int)type];
-            _displayWindow.AppendText("\n" + DateTime.Now.ToString("HH:mm:ss.fff") + "\n" + msg);
+            _displayWindow.AppendText("\n" + DateTime.Now.ToString("HHmmssfff") + "\n" + msg);
             _displayWindow.ScrollToCaret();
         }));
         }
@@ -391,7 +391,7 @@ namespace PCComm
                     //display the data to the user
                     if (bytes > 0)
                     {
-                        if (onData != null) onData(ByteToHex(comBuffer) + " ");
+                        if (onData != null) onData(ByteToHex(comBuffer));
                         DisplayData(MessageType.Incoming, "--Read--\n" + ByteToHex(comBuffer) + "\n");
                     }
                     break;

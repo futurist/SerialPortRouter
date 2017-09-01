@@ -38,11 +38,19 @@ namespace PCComm
             this.rdoHex = new System.Windows.Forms.RadioButton();
             this.cboStop = new System.Windows.Forms.ComboBox();
             this.GroupBox1 = new System.Windows.Forms.GroupBox();
+            this.cmdSend2 = new System.Windows.Forms.Button();
+            this.txtSend2 = new System.Windows.Forms.TextBox();
+            this.rtbDisplay2 = new System.Windows.Forms.RichTextBox();
             this.cmdSend = new System.Windows.Forms.Button();
             this.txtSend = new System.Windows.Forms.TextBox();
             this.rtbDisplay = new System.Windows.Forms.RichTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cboData2 = new System.Windows.Forms.ComboBox();
+            this.cboStop2 = new System.Windows.Forms.ComboBox();
+            this.cboParity2 = new System.Windows.Forms.ComboBox();
+            this.cboBaud2 = new System.Windows.Forms.ComboBox();
+            this.cboPort2 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cboParity = new System.Windows.Forms.ComboBox();
             this.Label1 = new System.Windows.Forms.Label();
@@ -76,14 +84,6 @@ namespace PCComm
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cboPort2 = new System.Windows.Forms.ComboBox();
-            this.cboBaud2 = new System.Windows.Forms.ComboBox();
-            this.cboParity2 = new System.Windows.Forms.ComboBox();
-            this.cboStop2 = new System.Windows.Forms.ComboBox();
-            this.cboData2 = new System.Windows.Forms.ComboBox();
-            this.rtbDisplay2 = new System.Windows.Forms.RichTextBox();
-            this.cmdSend2 = new System.Windows.Forms.Button();
-            this.txtSend2 = new System.Windows.Forms.TextBox();
             this.groupBox3.SuspendLayout();
             this.GroupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -187,6 +187,32 @@ namespace PCComm
             this.GroupBox1.TabStop = false;
             this.GroupBox1.Text = "Serial Port Communication";
             // 
+            // cmdSend2
+            // 
+            this.cmdSend2.Location = new System.Drawing.Point(560, 239);
+            this.cmdSend2.Name = "cmdSend2";
+            this.cmdSend2.Size = new System.Drawing.Size(75, 21);
+            this.cmdSend2.TabIndex = 8;
+            this.cmdSend2.Text = "Send";
+            this.cmdSend2.UseVisualStyleBackColor = true;
+            this.cmdSend2.Click += new System.EventHandler(this.cmdSend2_Click);
+            // 
+            // txtSend2
+            // 
+            this.txtSend2.Enabled = false;
+            this.txtSend2.Location = new System.Drawing.Point(324, 239);
+            this.txtSend2.Name = "txtSend2";
+            this.txtSend2.Size = new System.Drawing.Size(230, 21);
+            this.txtSend2.TabIndex = 7;
+            // 
+            // rtbDisplay2
+            // 
+            this.rtbDisplay2.Location = new System.Drawing.Point(324, 17);
+            this.rtbDisplay2.Name = "rtbDisplay2";
+            this.rtbDisplay2.Size = new System.Drawing.Size(311, 216);
+            this.rtbDisplay2.TabIndex = 6;
+            this.rtbDisplay2.Text = "";
+            // 
             // cmdSend
             // 
             this.cmdSend.Location = new System.Drawing.Point(243, 239);
@@ -246,6 +272,61 @@ namespace PCComm
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Options";
+            // 
+            // cboData2
+            // 
+            this.cboData2.FormattingEnabled = true;
+            this.cboData2.Items.AddRange(new object[] {
+            "7",
+            "8",
+            "9"});
+            this.cboData2.Location = new System.Drawing.Point(91, 178);
+            this.cboData2.Name = "cboData2";
+            this.cboData2.Size = new System.Drawing.Size(76, 20);
+            this.cboData2.TabIndex = 24;
+            // 
+            // cboStop2
+            // 
+            this.cboStop2.FormattingEnabled = true;
+            this.cboStop2.Location = new System.Drawing.Point(91, 143);
+            this.cboStop2.Name = "cboStop2";
+            this.cboStop2.Size = new System.Drawing.Size(76, 20);
+            this.cboStop2.TabIndex = 23;
+            // 
+            // cboParity2
+            // 
+            this.cboParity2.FormattingEnabled = true;
+            this.cboParity2.Location = new System.Drawing.Point(91, 105);
+            this.cboParity2.Name = "cboParity2";
+            this.cboParity2.Size = new System.Drawing.Size(76, 20);
+            this.cboParity2.TabIndex = 22;
+            // 
+            // cboBaud2
+            // 
+            this.cboBaud2.FormattingEnabled = true;
+            this.cboBaud2.Items.AddRange(new object[] {
+            "300",
+            "600",
+            "1200",
+            "2400",
+            "4800",
+            "9600",
+            "14400",
+            "28800",
+            "36000",
+            "115000"});
+            this.cboBaud2.Location = new System.Drawing.Point(91, 68);
+            this.cboBaud2.Name = "cboBaud2";
+            this.cboBaud2.Size = new System.Drawing.Size(76, 20);
+            this.cboBaud2.TabIndex = 21;
+            // 
+            // cboPort2
+            // 
+            this.cboPort2.FormattingEnabled = true;
+            this.cboPort2.Location = new System.Drawing.Point(91, 31);
+            this.cboPort2.Name = "cboPort2";
+            this.cboPort2.Size = new System.Drawing.Size(76, 20);
+            this.cboPort2.TabIndex = 20;
             // 
             // label2
             // 
@@ -533,87 +614,6 @@ namespace PCComm
             this.aboutToolStripMenuItem.Text = "&About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // cboPort2
-            // 
-            this.cboPort2.FormattingEnabled = true;
-            this.cboPort2.Location = new System.Drawing.Point(91, 31);
-            this.cboPort2.Name = "cboPort2";
-            this.cboPort2.Size = new System.Drawing.Size(76, 20);
-            this.cboPort2.TabIndex = 20;
-            // 
-            // cboBaud2
-            // 
-            this.cboBaud2.FormattingEnabled = true;
-            this.cboBaud2.Items.AddRange(new object[] {
-            "300",
-            "600",
-            "1200",
-            "2400",
-            "4800",
-            "9600",
-            "14400",
-            "28800",
-            "36000",
-            "115000"});
-            this.cboBaud2.Location = new System.Drawing.Point(91, 68);
-            this.cboBaud2.Name = "cboBaud2";
-            this.cboBaud2.Size = new System.Drawing.Size(76, 20);
-            this.cboBaud2.TabIndex = 21;
-            // 
-            // cboParity2
-            // 
-            this.cboParity2.FormattingEnabled = true;
-            this.cboParity2.Location = new System.Drawing.Point(91, 105);
-            this.cboParity2.Name = "cboParity2";
-            this.cboParity2.Size = new System.Drawing.Size(76, 20);
-            this.cboParity2.TabIndex = 22;
-            // 
-            // cboStop2
-            // 
-            this.cboStop2.FormattingEnabled = true;
-            this.cboStop2.Location = new System.Drawing.Point(91, 143);
-            this.cboStop2.Name = "cboStop2";
-            this.cboStop2.Size = new System.Drawing.Size(76, 20);
-            this.cboStop2.TabIndex = 23;
-            // 
-            // cboData2
-            // 
-            this.cboData2.FormattingEnabled = true;
-            this.cboData2.Items.AddRange(new object[] {
-            "7",
-            "8",
-            "9"});
-            this.cboData2.Location = new System.Drawing.Point(91, 178);
-            this.cboData2.Name = "cboData2";
-            this.cboData2.Size = new System.Drawing.Size(76, 20);
-            this.cboData2.TabIndex = 24;
-            // 
-            // rtbDisplay2
-            // 
-            this.rtbDisplay2.Location = new System.Drawing.Point(324, 17);
-            this.rtbDisplay2.Name = "rtbDisplay2";
-            this.rtbDisplay2.Size = new System.Drawing.Size(311, 216);
-            this.rtbDisplay2.TabIndex = 6;
-            this.rtbDisplay2.Text = "";
-            // 
-            // cmdSend2
-            // 
-            this.cmdSend2.Location = new System.Drawing.Point(560, 239);
-            this.cmdSend2.Name = "cmdSend2";
-            this.cmdSend2.Size = new System.Drawing.Size(75, 21);
-            this.cmdSend2.TabIndex = 8;
-            this.cmdSend2.Text = "Send";
-            this.cmdSend2.UseVisualStyleBackColor = true;
-            this.cmdSend2.Click += new System.EventHandler(this.cmdSend2_Click);
-            // 
-            // txtSend2
-            // 
-            this.txtSend2.Enabled = false;
-            this.txtSend2.Location = new System.Drawing.Point(324, 239);
-            this.txtSend2.Name = "txtSend2";
-            this.txtSend2.Size = new System.Drawing.Size(230, 21);
-            this.txtSend2.TabIndex = 7;
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -630,6 +630,7 @@ namespace PCComm
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Communication Manager";
             this.Load += new System.EventHandler(this.frmMain_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.GroupBox1.ResumeLayout(false);

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using PCComm;
+using System.IO;
 namespace PCComm
 {
     public partial class frmMain : Form
@@ -13,6 +14,9 @@ namespace PCComm
         CommunicationManager comm = new CommunicationManager();
         CommunicationManager comm2 = new CommunicationManager();
         string transType = string.Empty;
+        int curDir = 0;
+        StreamWriter stream = new StreamWriter("code.txt", true);
+
         public frmMain()
         {
             InitializeComponent();
@@ -34,12 +38,24 @@ namespace PCComm
 
         int forward1(String abc)
         {
+            if (curDir != 0)
+            {
+                stream.Write("\r\n\r\n");
+            }
+            curDir = 0;
+            stream.Write(abc);
             comm2.WriteData(abc);
             return 1;
         }
 
         int forward2(String abc)
         {
+            if (curDir != 1)
+            {
+                stream.Write("\r\n\r\n");
+            }
+            curDir = 1;
+            stream.Write(abc);
             comm.WriteData(abc);
             return 1;
         }
@@ -127,7 +143,7 @@ namespace PCComm
         /// </summary>
         private void SetControlState()
         {
-            rdoText.Checked = true;
+            rdoHex.Checked = true;
             cmdSend.Enabled = false;
             cmdClose.Enabled = false;
 
@@ -182,8 +198,7 @@ namespace PCComm
 
         private void cmdClose_Click(object sender, EventArgs e)
         {
-            comm.ClosePort();
-            comm2.ClosePort();
+            cleanUp();
 
             if (false == comm.isPortOpen)
             {
@@ -208,6 +223,24 @@ namespace PCComm
         private void cmdSend2_Click(object sender, EventArgs e)
         {
             sendData2();
+        }
+
+        void cleanUp()
+        {
+            if (stream != null)
+            {
+                stream.Flush();
+                stream.Close();
+                stream = null;
+            }
+
+            comm.ClosePort();
+            comm2.ClosePort();
+        }
+
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            cleanUp();
         }
     }
 }
