@@ -14,8 +14,10 @@ namespace PCComm
         CommunicationManager comm = new CommunicationManager();
         CommunicationManager comm2 = new CommunicationManager();
         string transType = string.Empty;
-        int curDir = 0;
-        StreamWriter stream = new StreamWriter("code.txt", true);
+        int curDir = -1;
+        int totalBytes = 0;
+        static string fileName=DateTime.Now.ToString("yyyy-MM-dd_HHmmss") + ".txt";
+        StreamWriter stream = new StreamWriter(frmMain.fileName, true);
 
         public frmMain()
         {
@@ -40,11 +42,12 @@ namespace PCComm
         {
             if (curDir != 0)
             {
-                stream.Write("\r\n\r\n");
+                stream.Write("\r\n\r\n<<-- " + DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ\r\n"));
             }
             curDir = 0;
             stream.Write(abc);
             comm2.WriteData(abc);
+            totalBytes += abc.Length;
             return 1;
         }
 
@@ -52,11 +55,12 @@ namespace PCComm
         {
             if (curDir != 1)
             {
-                stream.Write("\r\n\r\n");
+                stream.Write("\r\n\r\n-->> " + DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ\r\n"));
             }
             curDir = 1;
             stream.Write(abc);
             comm.WriteData(abc);
+            totalBytes += abc.Length;
             return 1;
         }
 
@@ -106,13 +110,14 @@ namespace PCComm
         /// </summary>
         private void SetDefaults()
         {
-            cboPort.SelectedIndex = 0;
+            if (cboPort.Items.Count > 0) cboPort.SelectedIndex = 0;
+            
             cboBaud.SelectedText = "9600";
             cboParity.SelectedIndex = 0;
             cboStop.SelectedIndex = 1;
             cboData.SelectedIndex = 1;
 
-            cboPort2.SelectedIndex = 1;
+            if (cboPort.Items.Count > 1) cboPort2.SelectedIndex = 1;
             cboBaud2.SelectedText = "9600";
             cboParity2.SelectedIndex = 0;
             cboStop2.SelectedIndex = 1;
@@ -232,6 +237,11 @@ namespace PCComm
                 stream.Flush();
                 stream.Close();
                 stream = null;
+
+                if (totalBytes == 0)
+                {
+                    File.Delete(frmMain.fileName);
+                }
             }
 
             comm.ClosePort();
